@@ -56,6 +56,7 @@ in at least 4 of 5 tries.
 ---
 
 ## 4. Something about your chunks
+No chunk is shorter than 60 characters.
 
 <!-- YOU WRITE THIS ONE.
 
@@ -72,12 +73,14 @@ in at least 4 of 5 tries.
 
 
 **Why this target:**
-
+The shortest actual reply in my corpus is 68 characters, so nothing under 60 could be a real reply. It could only be a leftover trail.
 
 
 ---
 
 ## 5. Your choice
+
+When I ask a question that covers a source document with multiple perspectives it shares all of them instead of only giving a few.
 
 <!-- YOU WRITE THIS ONE TOO.
 
@@ -90,7 +93,7 @@ in at least 4 of 5 tries.
 
 
 **Why this target:**
-
+I wanted to go with this target because I think it is an important part of accuracy and being true to the source, so that users can get the whole picture and not just parts here and there.
 
 
 ---
