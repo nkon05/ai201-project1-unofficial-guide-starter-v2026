@@ -1,57 +1,24 @@
 # The Unofficial Guide
 
-<!-- Replace this line with your name and which corpus you picked. -->
-
-> **This file is your submission.** Fill it in as you go — most sections get
-> written during the milestone that produces them, not at the end.
->
-> How the starter works, and every command you'll need, is in `RUNNING.md`.
-> Leave that file alone.
->
-> **Paste everything as text.** No screenshots, no video. A typed table gets
-> full credit; a picture of the same table gets none.
->
-> Delete these instruction blocks as you replace them. The `<!-- -->` comments
-> are notes to you and don't show up when the page renders — you can leave them
-> or remove them.
+Nithya Kondagari
+corpus: advice_threads
 
 ---
 
 # Unit 1
 
 ## What This Does
+I picked the advice_threads corpus. This system answers questions that students may have about classes and life on campus. For example, whether professors actually answer their emails, if you should buy a bike for a 20 minute walking commute, if the edition of a textbook matters. Questions that are general to college life but not necessarily a specific class.
 
-<!-- Three or four sentences. Which corpus you picked, and the kinds of
-     questions your system answers. Write it for someone who has never seen
-     this repo.
-
-     Milestone 5. -->
 
 ## Chunking Strategy
 
-**Chunk size:** 75
-**Overlap:**
+**Chunk size:** 800 characters
+**Overlap:** 120 overlap
 
-<!-- What about YOUR documents made you pick these numbers? Short posts and
-     long sectioned guides don't want the same chunking, and "800 seemed
-     reasonable" earns nothing. Point at something you noticed when you read
-     the documents in Milestone 1.
-
-     If you changed your mind partway through, say so and say why. That's worth
-     more than pretending you got it right first time.
-
-     Milestone 3. -->
+The baseline used 800/120. My strategy doesn't have a chunk size, it splits on --- reply n --- markers, so chunk length is set by the corpus (105–254 characters, 175 average) rather than by a number I picked. The 800/120 values remain in config.py for fallback_split, which I kept for comparison.
 
 ## Sample Chunks
-
-<!-- Five chunks, pasted as text. Label each one and name the file it came from
-     AND the function that produced it — the grader checks your code against
-     what you claim here.
-
-     `python app.py chunks -n 5` prints all three for you. Copy them straight
-     across.
-
-     Milestone 3. -->
 
 **Chunk 1** — source: `` — produced by: ``
 
@@ -148,25 +115,11 @@ Sources retrieved: thread_bike_commute.txt, thread_commuting.txt
 | "How do I write a for loop in Rust?" | N | 0.861 |
 
 ## How I Used AI
-
-<!-- Two specific moments. For each: what you asked for, what came back, and
-     what you changed about it.
-
-     "I asked Claude to write the chunking function from my notes. It ignored
-     the overlap, so I added that myself" is the level of detail we're after.
-     "I used AI to help me code" is not.
-
-     Milestone 5. -->
-
 **1.**
+I used Claude to write the chunking function and used it to help me come up with the strategy for the algorithm. I also used it to help me understand the function itself. It gave me explanations and a walkthrough of the algorithm. 
 
 **2.**
-
-<!-- ── Stretch features ─────────────────────────────────────────────────────
-     Doing one? Say so here BEFORE you start. A feature this README never
-     claims earns nothing.
-     ───────────────────────────────────────────────────────────────────────── -->
-
+I used Claude again to help me validate my acceptance criterion and decide if they were measurable or not. It gave me feedback on whether they were good or not. Based on its feedback I either made small tweaks such as adding character lengths or just left them as is.
 ---
 
 # Unit 2
