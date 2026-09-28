@@ -29,7 +29,7 @@
 
 ## Chunking Strategy
 
-**Chunk size:**
+**Chunk size:** 75
 **Overlap:**
 
 <!-- What about YOUR documents made you pick these numbers? Short posts and
@@ -114,30 +114,38 @@ The library being open until 2am is a trap. It's a resource, not a schedule.
 
 ## Sample Answer
 
-<!-- One complete question and answer, pasted as text, with the source line
-     visible. Milestone 4. -->
-
 **Question:**
 
 **Answer:**
 
 ```
+(.venv) nithyakondagari@Nithyas-MacBook-Pro-2 ai201-project1-unofficial-guide-starter-v2026 % python app.py ask "What do people think about buying a bike for a 20 minute walking commute?"
+  (best distance 0.150, cutoff 0.6)
+
+Based on the provided documents, opinions on getting a bike for the commute are mixed:
+- One person notes that a bike cuts an 18-minute walk down to about 6 minutes, but warns that covered bike parking fills up by 9 AM (`thread_bike_commute.txt`).
+- Another person keeps a cheap $120 bike to use from September to November and walks the rest of the year (`thread_bike_commute.txt`).
+- Another commenter recommends registering the bike for free on campus, which helped them recover their stolen bike (`thread_bike_commute.txt`).
+- A counterpoint is offered by someone who sold their bike because winter salt (between November and March) destroys a drivetrain in a single season (`thread_bike_commute.txt`).
+
+Sources retrieved: thread_bike_commute.txt, thread_commuting.txt
+
+1 model calls this session, 602 tokens (436 in, 166 out)
 ```
 
-**My relevance cutoff:**
-
-<!-- The number you set in config.py, and how you got there.
-
-     You ran five questions your corpus covers and the five in OUT_OF_SCOPE
-     that it clearly doesn't, and wrote down the best distance for each. What
-     did those two groups look like? Where was the gap? Put the actual numbers
-     here — the table below wants all ten rows.
-
-     Milestone 4. -->
+**My relevance cutoff:** 0.5. I chose this because the higest best distance for a question in the corpus was still under 0.4, and the lowest best distance for a question that was not in the corpus was above 0.8. I felt that since it was performing well at 0.6, I could decrease it to 0.5 as the best distances for in corpus questions were still atleast 0.1 less.
 
 | Question | In corpus? | Best distance |
-|---|---|---|
-|  |  |  |
+| "What do people think about buying a bike for a 20 minute walking commute?" | Yes | 0.150 |
+| "What are people saying about whether professors answer email?" | Y | 0.250 |
+| "What are people saying about whether it is worth it to fix your sleep schedule?" | Y | 0.281 |
+| "Do people say that the edition of a textbook matters?" | Y | 0.382 |
+| "What do people say you need during the winter" | Y | 0.398 |
+| "What is the capital of Mongolia?" | N | 0.899 |
+| "How do I change the oil in a diesel engine?" | N | 0.905 |
+| "Who won the 1994 World Cup?" | N | 0.898 |
+| "What is the recommended dosage of ibuprofen for a headache?" | N | 0.819 |
+| "How do I write a for loop in Rust?" | N | 0.861 |
 
 ## How I Used AI
 
