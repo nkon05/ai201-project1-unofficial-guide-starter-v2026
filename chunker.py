@@ -22,6 +22,7 @@ to it, write down what you saw, and move on. That's a real observation about
 your pipeline, not giving up.
 """
 
+import re
 from dataclasses import dataclass
 
 import config
@@ -80,24 +81,60 @@ def fallback_split(
     return chunks
 
 
+REPLY_MARKER = re.compile(r"^--- reply \d+ \(\d+ votes\) ---$", re.MULTILINE)
+
+
 def split_documents(documents: list[Document]) -> list[Chunk]:
     """
-    Split documents into chunks. ⚠️ REPLACE THE BODY OF THIS IN MILESTONE 3.
+    One chunk per reply, with the thread question carried into each.
 
-    Right now it just calls the fallback. That is the plain, generic behaviour
-    the brief is talking about.
+    Every document in advice_threads is a thread: a `THREAD:` line, then two to
+    five replies marked `--- reply n (m votes) ---`. Each reply is a separate
+    person's advice, so a chunk holding two of them holds two unrelated claims.
+    Splitting on the marker keeps one thought per chunk.
 
-    When you write your own strategy, set `produced_by` to
-    "chunker.py::split_documents" so your README's Sample Chunks section names
-    the right function. `app.py chunks` prints that string for you.
+    The question goes into every chunk because the replies lean on it for
+    context — "Two per year and eight across the degree" means nothing without
+    "When should you actually use the pass/fail option?" above it.
 
-    Things worth thinking about before you write any code:
-      - Are your documents short posts or long guides?
-      - Is the useful information in one sentence, or spread over a paragraph?
-      - Would splitting on paragraph breaks keep more thoughts intact than
-        splitting on a character count?
+    The vote counts are dropped. Replies run 68 to 195 characters, and at that
+    size "(38 votes)" dilutes the embedding more than it informs it.
+
+    Documents with no reply markers come through whole, which is the right
+    answer for a corpus that isn't this one.
     """
-    return fallback_split(documents)
+    chunks: list[Chunk] = []
+
+    for doc in documents:
+        parts = REPLY_MARKER.split(doc.text)
+        question = parts[0].strip()
+        replies = [reply.strip() for reply in parts[1:] if reply.strip()]
+
+        if not replies:
+            # No markers, or a header with nothing under it: keep the document.
+            whole = doc.text.strip()
+            if whole:
+                chunks.append(
+                    Chunk(
+                        text=whole,
+                        source=doc.source,
+                        index=0,
+                        produced_by="chunker.py::split_documents",
+                    )
+                )
+            continue
+
+        for index, reply in enumerate(replies):
+            chunks.append(
+                Chunk(
+                    text=f"{question}\n\n{reply}" if question else reply,
+                    source=doc.source,
+                    index=index,
+                    produced_by="chunker.py::split_documents",
+                )
+            )
+
+    return chunks
 
 
 def describe(chunks: list[Chunk]) -> str:
