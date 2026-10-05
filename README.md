@@ -120,6 +120,9 @@ I used Claude to write the chunking function and used it to help me come up with
 
 **2.**
 I used Claude again to help me validate my acceptance criterion and decide if they were measurable or not. It gave me feedback on whether they were good or not. Based on its feedback I either made small tweaks such as adding character lengths or just left them as is.
+
+**3.**
+I used Claude to help me write my scorer.py file. I wrote a version by myself first and then I used Claude to help me debug and understand the run_eval.py file more easily. 
 ---
 
 # Unit 2
@@ -264,17 +267,8 @@ Produced by `run_eval.py::check_out_of_scope`, cutoff 0.6. Refused 5 of 5.
 
 ## What's Still Broken
 
-<!-- For each criterion still missed after your fix: what you'd do about it,
-     and why you stopped where you did.
-
-     "I ran out of time" is fine if it's true. Pretending nothing is left is
-     not.
-
-     Milestone 5. -->
+From what I understand, all of my criterion are met.
 
 ## What I'd Do Differently
 
-<!-- Knowing what you know now — which of your five criteria would you write
-     differently, and why?
-
-     Milestone 5. -->
+I believe my biggest issue is that my "expects" answers were not formatted correctly. If I was doing this project again I would pay more attention to that part. I would also switch my fourth criteria that was checking to make sure no chunk was shorter 60 characters because I don't think it really did much and I would like to tighten it up.
