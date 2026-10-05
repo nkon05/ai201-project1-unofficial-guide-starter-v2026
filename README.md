@@ -124,10 +124,6 @@ I used Claude again to help me validate my acceptance criterion and decide if th
 
 # Unit 2
 
-<!-- These sections get ADDED to what's already above. Don't delete or rewrite
-     unit 1 — the point is that someone can see what you said before you knew
-     how it went. -->
-
 ## Run Log — Before
 
 <!-- Your five criteria, three runs each. `python run_eval.py --label before`
@@ -139,18 +135,57 @@ I used Claude again to help me validate my acceptance criterion and decide if th
      the same number goes in all three run columns. That's correct, not lazy.
 
      Milestone 1. -->
+!!! NOTE: My run log says failed for all of the scorings because of the way I worded my expects during the first week. As a result, the substring method of the scorer does not work the way it is intended to. I used the actual output for each run to evaluate the criterion.
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| 1. Retrieved chunk contains the answer | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 2. Every answer names a source | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 3. Gate stops out-of-corpus questions | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 4. No chunk is shorter than 60 characters. | 5 of 5| 5/5 | 5/5 | 5/5 | MET |
+| 5. When I ask a question that covers a source document with multiple perspectives it shares all of them instead of only giving a few. | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
 
 <!-- Underneath, paste the REAL output for each criterion from one of your
      runs — the actual text your system produced, not a description of it.
      Name the file and function that produced it. -->
+This text shows the 4th and 5th criterions working for the first question across all 3 runs:
+### What do people think about buying a bike for a 20 minute walking commute? — run 1
+
+- Best distance: 0.1497 (passed the gate)
+- Sources retrieved: thread_bike_commute.txt, thread_commuting.txt
+
+```
+Based on the provided documents, opinions on getting a bike for a 20-minute walking commute include:
+
+* A bike can significantly cut down travel time (reducing an 18-minute walk to about 6 minutes). 
+* Some users only use a cheap bike for certain months (like September to November) and walk the rest of the year. 
+* Downsides mentioned include storage issues (covered bike parking fills up by 9 am) and weather/maintenance concerns, as salt on the paths between November and March can destroy a drivetrain in a single season. 
+* Free campus registration is recommended, as it helped one user recover a stolen bike.
+
+*(Source: thread_bike_commute.txt)*
+```
+
+### What do people think about buying a bike for a 20 minute walking commute? — run 2
+
+- Best distance: 0.1497 (passed the gate)
+- Sources retrieved: thread_bike_commute.txt, thread_commuting.txt
+
+```
+Opinions on getting a bike for a 20-minute walking commute are mixed: one person notes it cuts an 18-minute walk down to about 6 minutes, and another keeps a cheap bike for part of the year. However, a counterpoint mentions selling a bike because winter salt destroys the drivetrain in one season, and another warns that covered bike parking fills up by 9 a.m. 
+
+*(Source: thread_bike_commute.txt)*
+```
+
+### What do people think about buying a bike for a 20 minute walking commute? — run 3
+
+- Best distance: 0.1497 (passed the gate)
+- Sources retrieved: thread_bike_commute.txt, thread_commuting.txt
+
+```
+Opinions vary on getting a bike for a 20-minute walk commute: one person notes it cuts an 18-minute walk down to about 6 minutes, but warns that covered bike parking fills up by 9 AM. Another keeps a cheap bike for September through November, while someone else sold theirs because salt on the paths destroys the drivetrain between November and March. Additionally, one user recommends taking advantage of free campus bike registration, which helped them recover their stolen bike. 
+
+Source: `thread_bike_commute.txt`
+```
 
 ## Verdicts
 
