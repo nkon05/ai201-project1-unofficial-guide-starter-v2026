@@ -148,13 +148,37 @@ I used Claude again to help me validate my acceptance criterion and decide if th
 <!-- Underneath, paste the REAL output for each criterion from one of your
      runs — the actual text your system produced, not a description of it.
      Name the file and function that produced it. -->
-This text shows the 4th and 5th criterions working for the first question across all 3 runs:
-### What do people think about buying a bike for a 20 minute walking commute? — run 1
+### Criterion 1: Retrieved chunk contains the answer
+Produced by `run_eval.py::main` (retrieval via `store.py::search`), from `results/run_2026-10-05_0227_before.md`, Run 1.
 
+```
+### What do people think about buying a bike for a 20 minute walking commute? — run 1
 - Best distance: 0.1497 (passed the gate)
 - Sources retrieved: thread_bike_commute.txt, thread_commuting.txt
 
+### What are people saying about whether professors answer email? — run 1
+- Best distance: 0.2500 (passed the gate)
+- Sources retrieved: thread_office_hours_etiquette.txt, thread_professor_email.txt
+
+### What are people saying about whether it is worth it to fix your sleep schedule? — run 1
+- Best distance: 0.2811 (passed the gate)
+- Sources retrieved: thread_bike_commute.txt, thread_commuting.txt, thread_sleep_schedule.txt
+
+### Do people say that the edition of a textbook matters? — run 1
+- Best distance: 0.3816 (passed the gate)
+- Sources retrieved: thread_first_gen.txt, thread_printing.txt, thread_textbook_editions.txt
+
+### What do people say you need during the winter — run 1
+- Best distance: 0.3976 (passed the gate)
+- Sources retrieved: thread_bike_commute.txt, thread_internship_timing.txt, thread_winter_advice.txt
 ```
+
+### Criteria 2, 4, and 5: every answer names a source / no chunk is shorter than 60 characters / answers share all perspectives
+Produced by `run_eval.py::main` (answers from `generate.py::answer_from_chunks`), Run 1.
+
+```
+### What do people think about buying a bike for a 20 minute walking commute? — run 1
+
 Based on the provided documents, opinions on getting a bike for a 20-minute walking commute include:
 
 * A bike can significantly cut down travel time (reducing an 18-minute walk to about 6 minutes). 
@@ -163,48 +187,50 @@ Based on the provided documents, opinions on getting a bike for a 20-minute walk
 * Free campus registration is recommended, as it helped one user recover a stolen bike.
 
 *(Source: thread_bike_commute.txt)*
+
+### What are people saying about whether professors answer email? — run 1
+
+According to `thread_professor_email.txt`, how professors answer email varies enormously. A good general rule is that if the syllabus states a response window, it is honored, and if it does not, you should assume a 48-hour response time before panicking.
+
+### What are people saying about whether it is worth it to fix your sleep schedule? — run 1
+
+People say that fixing your sleep does matter, and one person noted that scheduling no classes before 10am helped them rather than trying to become a morning person. Additionally, counselling runs a short, free, four-session workshop on this that is practical. (Source: thread_sleep_schedule.txt)
+
+### Do people say that the edition of a textbook matters? — run 1
+
+Whether the edition matters depends on the subject: for maths and physics it almost never matters (only problem numbering shifts), but for fields that move, it can matter a lot. Additionally, you can ask the instructor directly, as most will say the previous edition is fine. 
+
+Source: thread_textbook_editions.txt
+
+### What do people say you need during the winter — run 1
+
+Based on the provided documents (`thread_winter_advice.txt`), people say you need boots with actual tread, layers instead of a big coat, and a light that clips to your bag.
 ```
 
-### What do people think about buying a bike for a 20 minute walking commute? — run 2
-
-- Best distance: 0.1497 (passed the gate)
-- Sources retrieved: thread_bike_commute.txt, thread_commuting.txt
+### Criterion 3: Gate stops out-of-corpus questions
+Produced by `run_eval.py::check_out_of_scope`, one deterministic pass, so the same result is in all three run columns.
 
 ```
-Opinions on getting a bike for a 20-minute walking commute are mixed: one person notes it cuts an 18-minute walk down to about 6 minutes, and another keeps a cheap bike for part of the year. However, a counterpoint mentions selling a bike because winter salt destroys the drivetrain in one season, and another warns that covered bike parking fills up by 9 a.m. 
+Produced by `run_eval.py::check_out_of_scope`, cutoff 0.6. Refused 5 of 5.
 
-*(Source: thread_bike_commute.txt)*
-```
-
-### What do people think about buying a bike for a 20 minute walking commute? — run 3
-
-- Best distance: 0.1497 (passed the gate)
-- Sources retrieved: thread_bike_commute.txt, thread_commuting.txt
-
-```
-Opinions vary on getting a bike for a 20-minute walk commute: one person notes it cuts an 18-minute walk down to about 6 minutes, but warns that covered bike parking fills up by 9 AM. Another keeps a cheap bike for September through November, while someone else sold theirs because salt on the paths destroys the drivetrain between November and March. Additionally, one user recommends taking advantage of free campus bike registration, which helped them recover their stolen bike. 
-
-Source: `thread_bike_commute.txt`
+| Out-of-scope question | Best distance | Gate |
+|---|---|---|
+| What is the capital of Mongolia? | 0.899 | refused |
+| How do I change the oil in a diesel engine? | 0.905 | refused |
+| Who won the 1994 World Cup? | 0.898 | refused |
+| What is the recommended dosage of ibuprofen for a headache? | 0.819 | refused |
+| How do I write a for loop in Rust? | 0.861 | refused |
 ```
 
 ## Verdicts
 
-<!-- MET or MISSED for each of the five, against the target you wrote last
-     unit — not a new one. Plus a sentence on how you decided. That sentence
-     matters most where it was close.
-
-     If your target said 4 of 5 and your runs came out 4, 3, 4, that's a MISS.
-     The target has to hold, not show up occasionally.
-
-     Milestone 2. -->
-
 | # | Criterion | Verdict | How I decided |
 |---|---|---|---|
-| 1 |  |  |  |
-| 2 |  |  |  |
-| 3 |  |  |  |
-| 4 |  |  |  |
-| 5 |  |  |  |
+| 1 | Retrieved chunk contains the answer | MET | Based on the actual corpus I was able to verify that the chunks that were used to answer the questions were the correct ones and did contain the answer. |
+| 2 | Every answer names a source | MET | In all of the runs, each answer named the source, so I decided that the criteria was met. |
+| 3 | Gate stops out-of-corpus questions | MET | All 5 questions were refused in the runs so I decided it was met. |
+| 4 | No chunk is shorter than 60 characters | MET | Based on the length of the answers in each of the runs I could tell that the chunks were greater than 60 characters, especially because the corpus had some longer bodies of text that all needed to be summarized. |
+| 5 | When I ask a question that covers a source document with multiple perspectives it shares all of them instead of only giving a few | MET | I decided it was met by comparing the answers to the actual texts from the corpus and seeing whether or not it left out important information. |
 
 ## Diagnoses
 
